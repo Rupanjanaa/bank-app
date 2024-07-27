@@ -3,6 +3,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Firstpage from './Firstpage';
 import Registration from './Registration';
 import SignIn from './SignIn';
 
@@ -22,12 +23,12 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/Registration" element={<Registration />} />
+        <Route path="/" element={<Firstpage />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/registration" element={<Registration />} />
       </Routes>
     </Router>
   );
-
 }
 
 
