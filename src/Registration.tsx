@@ -173,7 +173,7 @@ return (
                   label="Social Security Number"
                   name="scn"
                   type="text"
-                  inputProps={{ maxLength: 10 }}
+                  inputProps={{ maxLength: 9 }}
                 />
               </Grid>
               <Grid item xs={12}>
