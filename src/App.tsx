@@ -1,8 +1,10 @@
-import Box from '@mui/material/Box';
+//import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import Dashboard from './Dashboard';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Registration from './Registration';
+import SignIn from './SignIn';
 
 function Copyright() {
   return (
@@ -18,13 +20,23 @@ function Copyright() {
 
 export default function App() {
   return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/Registration" element={<Registration />} />
+      </Routes>
+    </Router>
+  );
+
+}
+
+
+/*return (
     <Box sx={{ width: '100vw', height: '100vh' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        {/* Dashboard Component */}
-        <Box sx={{ flexGrow: 1, p: 4 }}>
-          <Dashboard />
+        /*<Box sx={{ flexGrow: 1, p: 4 }}>
+          <SignIn />
         </Box>
       </Box>
     </Box>
-  );
-}
+  );*/
