@@ -7,13 +7,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import * as React from 'react';
+//import { Link } from 'react-router-dom';
 
 export const mainListItems = (
   <React.Fragment>
     <ListSubheader component="div" inset>
       About Account
     </ListSubheader>
-    <ListItemButton>
+    <ListItemButton href="/Firstpage">
       <ListItemIcon>
         <HomeIcon />
       </ListItemIcon>
@@ -59,9 +60,9 @@ export const thirdListItems = (
     <ListSubheader component="div" inset>
       Authentication
     </ListSubheader>
-    <ListItemButton>
+    <ListItemButton href="/SignIn">
       <ListItemIcon>
-        <LogoutIcon />;
+        <LogoutIcon />
       </ListItemIcon>
       <ListItemText primary="Log out" />
     </ListItemButton>

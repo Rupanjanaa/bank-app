@@ -24,7 +24,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Firstpage />} />
+        <Route path="/firstpage" element={<Firstpage />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />
