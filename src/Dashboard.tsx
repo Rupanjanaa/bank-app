@@ -16,11 +16,13 @@ import Paper from '@mui/material/Paper';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import React from 'react';
 import Chart from './Chart';
 import Deposits from './Deposits';
-import { mainListItems, secondaryListItems } from './listItems';
+import { useAppSelector } from './hooks'; // Ensure path is correct
+import { mainListItems, secondaryListItems, thirdListItems } from './listItems';
 import Orders from './Orders';
+import { RootState } from './store'; // Ensure path is correct
 
 function Copyright(props: any) {
   return (
@@ -35,7 +37,7 @@ function Copyright(props: any) {
   );
 }
 
-const drawerWidth: string = '240px'; 
+const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -85,7 +87,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
@@ -93,6 +94,8 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const username = useAppSelector((state: RootState) => state.user.username);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -123,7 +126,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Welcome! {username}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -146,22 +149,18 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
-          </List>
+          <List>{mainListItems}</List>
+          <Divider />
+          <List>{secondaryListItems}</List>
+          <Divider />
+          <List>{thirdListItems}</List>
         </Drawer>
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
             flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
+            bgcolor: (theme) => theme.palette.background.default,
+            p: 3,
           }}
         >
           <Toolbar />
@@ -169,27 +168,13 @@ export default function Dashboard() {
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240 }}>
                   <Chart />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240 }}>
                   <Deposits />
                 </Paper>
               </Grid>
@@ -207,4 +192,3 @@ export default function Dashboard() {
     </ThemeProvider>
   );
 }
-export{ };
