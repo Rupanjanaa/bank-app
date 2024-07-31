@@ -7,6 +7,8 @@ import Dashboard from './Dashboard';
 import Firstpage from './Firstpage';
 import Registration from './Registration';
 import SignIn from './SignIn';
+import Success from './Success';
+
 
 function Copyright() {
   return (
@@ -24,9 +26,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Firstpage />} />
         <Route path="/firstpage" element={<Firstpage />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/success" element={<Success />} />
         <Route path="/dashboard" element={<Dashboard />} />
 
       </Routes>
