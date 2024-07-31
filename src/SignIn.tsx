@@ -11,10 +11,10 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from './hooks'; // Updated path
-import { setUsername } from './Slice'; // Updated path
+import { useAppDispatch, useAppSelector } from './hooks'; // Ensure path is correct
+import { loginUser } from './Slice'; // Ensure path and export are correct
 
 function Copyright(props: any) {
   return (
@@ -34,15 +34,19 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const errorMessage = useAppSelector((state) => state.user.errorMessage); // Ensure state structure matches
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (errorMessage === '') {
+      navigate('/dashboard');
+    }
+  }, [errorMessage, navigate]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const username = data.get('username') as string;
-
-    dispatch(setUsername(username));
-
-    navigate('/dashboard');
+    dispatch(loginUser({ username, password }));
   };
 
   return (
@@ -61,7 +65,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -73,6 +77,8 @@ export default function SignIn() {
               name="username"
               autoComplete="username"
               autoFocus
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -83,7 +89,14 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+            {errorMessage && (
+              <Typography color="error" variant="body2" sx={{ mt: 2 }}>
+                {errorMessage}
+              </Typography>
+            )}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -103,7 +116,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/Registration" variant="body2">
+                <Link href="/registration" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -12,7 +12,10 @@ import MenuItem from '@mui/material/MenuItem';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from './hooks'; // Ensure path is correct
+import { registerUser } from './Slice'; // Ensure path and export are correct
 
 function Copyright(props: any) {
   return (
@@ -27,30 +30,37 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      dob: data.get('dob'),
-      gender: data.get('gender'),
-      phonenumber: data.get('phonenumber'),
-      address: data.get('address'),
-      zipcoder: data.get('zipcode'),
-      scn: data.get('scn'),
-      income: data.get('income'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-};
+    const userData = {
+      username: data.get('username') as string,
+      firstName: data.get('firstName') as string,
+      lastName: data.get('lastName') as string,
+      dob: data.get('dob') as string,
+      gender: data.get('gender') as string,
+      phone: data.get('phone') as string,
+      state: data.get('state') as string,
+      city: data.get('city') as string,
+      address: data.get('address') as string,
+      zipcode: data.get('zipcode') as string,
+      scn: data.get('scn') as string,
+      income: data.get('income') as string,
+      email: data.get('email') as string,
+      password: data.get('password') as string,
+    };
 
-return (
+    dispatch(registerUser(userData));
+    navigate('/Success');
+  };
 
+  return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -70,6 +80,16 @@ return (
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -85,7 +105,7 @@ return (
                 <TextField
                   required
                   fullWidth
-                 id="lastName"
+                  id="lastName"
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
@@ -215,7 +235,6 @@ return (
               </Grid>
             </Grid>
             <Button
-              href='/Success'
               type="submit"
               fullWidth
               variant="contained"
@@ -226,7 +245,7 @@ return (
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/SignIn" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Sign In
                 </Link>
               </Grid>
             </Grid>
@@ -237,5 +256,3 @@ return (
     </ThemeProvider>
   );
 }
-
-export { };

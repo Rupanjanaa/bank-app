@@ -40,7 +40,7 @@ export const Success: React.FC = () => {
     <CenteredContainer>
       <StyledCard>
         <CardContent>
-          <Typography variant="h4">You are registered!</Typography>
+          <Typography variant="h4">Congratulations! You are registered!</Typography>
           <BackButton href="/SignIn">
             Back to SignIn
           </BackButton>

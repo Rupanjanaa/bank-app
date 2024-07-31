@@ -95,7 +95,7 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
-  const username = useAppSelector((state: RootState) => state.user.username);
+  const username = useAppSelector((state: RootState) => state.user.username) || 'User';
 
   return (
     <ThemeProvider theme={defaultTheme}>
