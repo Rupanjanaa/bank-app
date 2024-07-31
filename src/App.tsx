@@ -38,13 +38,3 @@ export default function App() {
   );
 }
 
-
-/*return (
-    <Box sx={{ width: '100vw', height: '100vh' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        /*<Box sx={{ flexGrow: 1, p: 4 }}>
-          <SignIn />
-        </Box>
-      </Box>
-    </Box>
-  );*/

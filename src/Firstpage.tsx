@@ -4,7 +4,6 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import fr from './fr.jpg'; // Adjust the import path accordingly
 
-
 // Styled components
 const Nav = styled('nav')`
   position: fixed;
@@ -160,7 +159,7 @@ export const Firstpage: React.FC = () => {
         <img src={fr} alt="Sign In photo" style={{ width: '100%', margin: '20px 0' }} />
 
         <IntroContainer>
-        <IntroPara variant="body1">
+          <IntroPara variant="body1">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat culpa sunt ab rerum, corrupti odio! Quas ut consequatur rerum, tenetur nemo explicabo nulla suscipit maxime dignissimos!
           </IntroPara>
           <LearnButton variant="contained">
@@ -173,7 +172,7 @@ export const Firstpage: React.FC = () => {
           Hello and welcome to my bank!
         </Heading>
         <Intro>
-          <p>At [Bank Name], we prioritize your financial well-being</p> 
+          <p>At [Bank Name], we prioritize your financial well-being</p>
           <p>with cutting-edge technology and personalized service. Explore</p>
           <p>our range of banking solutions designed to fit your financial goals.</p>
         </Intro>

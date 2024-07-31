@@ -2,10 +2,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,8 +12,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from './hooks'; // Ensure path is correct
-import { registerUser } from './Slice'; // Ensure path and export are correct
+import { useAppDispatch } from './hooks';
+import { setUserCredentials } from './Slice';
 
 function Copyright(props: any) {
   return (
@@ -32,77 +30,66 @@ function Copyright(props: any) {
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function Registration() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = {
-      username: data.get('username') as string,
-      firstName: data.get('firstName') as string,
-      lastName: data.get('lastName') as string,
-      dob: data.get('dob') as string,
-      gender: data.get('gender') as string,
-      phone: data.get('phone') as string,
-      state: data.get('state') as string,
-      city: data.get('city') as string,
-      address: data.get('address') as string,
-      zipcode: data.get('zipcode') as string,
-      scn: data.get('scn') as string,
-      income: data.get('income') as string,
-      email: data.get('email') as string,
-      password: data.get('password') as string,
-    };
+    const username = data.get('username') as string;
+    const password = data.get('password') as string;
 
-    dispatch(registerUser(userData));
-    navigate('/Success');
+    dispatch(setUserCredentials({ username, password }));
+    navigate('/signin');
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign Up
-          </Typography>
+          <Typography component="h1" variant="h5">Register</Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                  autoComplete="username"
-                />
-              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  margin="normal"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  name="firstName"
+                  autoComplete="given-name"
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="lastName"
@@ -113,6 +100,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="dob"
@@ -123,6 +111,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="gender"
@@ -137,6 +126,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="phone"
@@ -147,6 +137,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="state"
@@ -157,6 +148,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="city"
@@ -167,6 +159,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="address"
@@ -177,6 +170,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="zipcode"
@@ -187,6 +181,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="scn"
@@ -198,6 +193,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="income"
@@ -208,29 +204,13 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>
@@ -240,13 +220,14 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Register
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">Forgot password?</Link>
+              </Grid>
               <Grid item>
-                <Link href="/SignIn" variant="body2">
-                  Already have an account? Sign In
-                </Link>
+                <Link href="/signin" variant="body2">Already have an account? Sign In</Link>
               </Grid>
             </Grid>
           </Box>
@@ -256,3 +237,4 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+

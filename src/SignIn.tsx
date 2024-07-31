@@ -1,3 +1,4 @@
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -11,10 +12,9 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks'; // Ensure path is correct
-import { loginUser } from './Slice'; // Ensure path and export are correct
 
 function Copyright(props: any) {
   return (
@@ -34,19 +34,19 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const errorMessage = useAppSelector((state) => state.user.errorMessage); // Ensure state structure matches
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    if (errorMessage === '') {
-      navigate('/dashboard');
-    }
-  }, [errorMessage, navigate]);
+  const { username: storedUsername, password: storedPassword } = useAppSelector((state) => state.user);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(loginUser({ username, password }));
+    const data = new FormData(event.currentTarget);
+    const username = data.get('username') as string;
+    const password = data.get('password') as string;
+
+    if (username === storedUsername && password === storedPassword) {
+      navigate('/dashboard');
+    } else {
+      alert('Wrong credentials');
+    }
   };
 
   return (
@@ -65,7 +65,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign In
+            Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -77,8 +77,6 @@ export default function SignIn() {
               name="username"
               autoComplete="username"
               autoFocus
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -89,14 +87,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
             />
-            {errorMessage && (
-              <Typography color="error" variant="body2" sx={{ mt: 2 }}>
-                {errorMessage}
-              </Typography>
-            )}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -128,3 +119,4 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+

@@ -1,42 +1,57 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
-  username: string;
-  password: string;
-  errorMessage: string;
-  registeredUsers: { [username: string]: string }; // Store username-password pairs
+  username: string | null;
+  password: string | null;
 }
 
 const initialState: UserState = {
-  username: '',
-  password: '',
-  errorMessage: '',
-  registeredUsers: {}, // Initially, no users are registered
+  username: null,
+  password: null,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    registerUser(state, action: PayloadAction<{ username: string; password: string }>) {
-      const { username, password } = action.payload;
-      state.registeredUsers[username] = password; // Add user credentials to state
-      state.errorMessage = ''; // Clear any previous error messages
+    setUserCredentials: (state, action: PayloadAction<{ username: string; password: string }>) => {
+      state.username = action.payload.username;
+      state.password = action.payload.password;
     },
-    loginUser(state, action: PayloadAction<{ username: string; password: string }>) {
-      const { username, password } = action.payload;
-      if (state.registeredUsers[username] === password) {
-        state.errorMessage = ''; // Clear any previous error messages
-      } else {
-        state.errorMessage = 'Please check your username/password'; // Set error message
-      }
+    clearUserCredentials: (state) => {
+      state.username = null;
+      state.password = null;
     },
+  },
+});
+
+export const { setUserCredentials, clearUserCredentials } = userSlice.actions;
+export default userSlice.reducer;
+
+
+
+
+/*
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface UserState {
+  username: string;
+}
+
+const initialState: UserState = {
+  username: '', // Default value
+};
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
     setUsername(state, action: PayloadAction<string>) {
       state.username = action.payload;
     },
   },
 });
 
-export const { registerUser, loginUser, setUsername } = userSlice.actions;
-
+export const { setUsername } = userSlice.actions;
 export default userSlice.reducer;
+*/
