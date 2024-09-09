@@ -12,25 +12,25 @@ const Nav = styled('nav')`
   background-color: whitesmoke;
   z-index: 1000;
   padding: 25px;
-  opacity: 0.9;
+  opacity: 0.8;
 `;
 
 const NavList = styled('ul')`
   list-style-type: none;
   display: flex;
   justify-content: flex-end;
-  margin: 0;
   padding: 0;
-  padding-right: 20px;
+  padding-right: 30px;
 `;
 
 const NavItem = styled('li')`
   margin: 0 15px;
   display: flex;
+  color: black;
   align-items: center;
 `;
 
-const NavLink = styled('a')`
+const NavLink = styled(RouterLink)`
   color: black;
   text-decoration: none;
   font-family: monospace;
@@ -50,18 +50,18 @@ const NavButton = styled(RouterLink)`
   text-decoration: none;
   display: inline-block;
   border: solid;
-  border-radius: 10px;
+  border-radius: 40px;
   font-size: 16px;
   cursor: pointer;
 
   &:hover {
-    background-color: #45a049;
+    background-color: #d64161;
+    color: white;
   }
 `;
 
 const Front = styled('div')`
   position: relative;
-  border: 2px solid black;
   margin: 10px;
   display: flex;
   align-items: center;
@@ -98,10 +98,10 @@ const LearnButton = styled(Button)`
   font-size: 16px;
   font-weight: bold;
   padding: 20px 30px;
-  color: black;
-  background-color: white;
+  color: white;
+  background-color: black;
   border: 2px solid black;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
 `;
 
@@ -119,8 +119,9 @@ const Heading = styled(Typography)`
 `;
 
 const Intro = styled('div')`
-  margin-top: 90px;
+  margin-top: 100px;
   text-align: center;
+  font-family: sans-serif;
   font-weight: bold;
 `;
 
@@ -145,38 +146,41 @@ export const Firstpage: React.FC = () => {
     <div>
       <Nav>
         <NavList>
-          <NavItem><a href="#personal-banking">Personal Banking</a></NavItem>
-          <NavItem><a href="#business">Business</a></NavItem>
-          <NavItem><a href="#about-us">About Us</a></NavItem>
           <NavItem>
-            <NavButton to="/SignIn">
-              Login
-            </NavButton>
+            <NavLink to="#personal-banking">Personal Banking</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="#business">Business</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="#about-us">About Us</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavButton to="/SignIn">Login</NavButton>
           </NavItem>
         </NavList>
       </Nav>
+
       <Front>
-        <img src={fr} alt="Sign In photo" style={{ width: '100%', margin: '20px 0' }} />
+        <img src={fr} alt="Sign In photo" />
 
         <IntroContainer>
           <IntroPara variant="body1">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat culpa sunt ab rerum, corrupti odio! Quas ut consequatur rerum, tenetur nemo explicabo nulla suscipit maxime dignissimos!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat culpa sunt ab rerum, corrupti odio! Quas ut consequatur rerum, tenetur nemo explicabo nulla suscipit maxime dignissimos!
           </IntroPara>
-          <LearnButton variant="contained">
-            Learn More
-          </LearnButton>
+          <LearnButton variant="contained">Learn More</LearnButton>
         </IntroContainer>
       </Front>
+
       <Second>
-        <Heading variant="h1">
-          Hello and welcome to my bank!
-        </Heading>
+        <Heading variant="h1">Hello and welcome to my bank!</Heading>
         <Intro>
           <p>At [Bank Name], we prioritize your financial well-being</p>
-          <p>with cutting-edge technology and personalized service. Explore</p>
-          <p>our range of banking solutions designed to fit your financial goals.</p>
+          <p>with cutting-edge technology and personalized service.</p>
+          <p>Explore our range of banking solutions designed to fit your financial goals.</p>
         </Intro>
       </Second>
+
       <Third>
         <BoxCard>
           <CardContent>
@@ -187,6 +191,7 @@ export const Firstpage: React.FC = () => {
             </Typography>
           </CardContent>
         </BoxCard>
+
         <BoxCard>
           <CardContent>
             <Typography variant="h1">Service 2</Typography>
@@ -196,6 +201,7 @@ export const Firstpage: React.FC = () => {
             </Typography>
           </CardContent>
         </BoxCard>
+
         <BoxCard>
           <CardContent>
             <Typography variant="h1">Service 3</Typography>

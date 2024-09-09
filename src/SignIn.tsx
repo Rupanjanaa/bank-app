@@ -1,4 +1,3 @@
-
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -12,7 +11,7 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks'; // Ensure path is correct
 
@@ -35,6 +34,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { username: storedUsername, password: storedPassword } = useAppSelector((state) => state.user);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,9 +43,10 @@ export default function SignIn() {
     const password = data.get('password') as string;
 
     if (username === storedUsername && password === storedPassword) {
+      setErrorMessage(''); // Clear error message on successful login
       navigate('/dashboard');
     } else {
-      alert('Wrong credentials');
+      setErrorMessage('Wrong credentials. Please engter the correct username or password'); // Set error message
     }
   };
 
@@ -87,6 +88,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              error={!!errorMessage} // Set error state for TextField if there's an error
+              helperText={errorMessage} // Display error message
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -119,4 +122,3 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
-
